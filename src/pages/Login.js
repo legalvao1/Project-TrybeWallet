@@ -1,5 +1,11 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
+import propTypes from 'prop-types';
+
+import userLoginAction from '../actions';
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -30,7 +36,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { buttonDisabled } = this.state;
+    const { buttonDisabled, email } = this.state;
+    const { userLogin } = this.props;
     return (
       <main>
         <h1>Login</h1>
@@ -46,10 +53,24 @@ class Login extends React.Component {
           placeholder="Digite sua senha"
           onChange={ (event) => this.handleChange(event) }
         />
-        <button type="button" disabled={ buttonDisabled }>Entrar</button>
+        <button
+          type="button"
+          disabled={ buttonDisabled }
+          onClick={ () => userLogin(email) }
+        >
+          Entrar
+        </button>
       </main>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (email) => dispatch(userLoginAction(email)),
+});
+
+Login.propTypes = {
+  userLogin: propTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
