@@ -35,9 +35,18 @@ class Login extends React.Component {
     this.setState({ buttonDisabled: !enable });
   }
 
+  redirectToPath() {
+    const { email } = this.state;
+    const { userLogin, history } = this.props;
+    console.log(history);
+    userLogin(email);
+    // **SOURCE https://qastack.com.br/programming/45089386/what-is-the-best-way-to-redirect-a-page-using-react-router */
+    history.push('/carteira');
+  }
+
   render() {
-    const { buttonDisabled, email } = this.state;
-    const { userLogin } = this.props;
+    const { buttonDisabled } = this.state;
+
     return (
       <main>
         <h1>Login</h1>
@@ -56,7 +65,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ buttonDisabled }
-          onClick={ () => userLogin(email) }
+          onClick={ () => this.redirectToPath() }
         >
           Entrar
         </button>
@@ -71,6 +80,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   userLogin: propTypes.func.isRequired,
+  history: propTypes.objectOf.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
