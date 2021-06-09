@@ -6,12 +6,29 @@ import propTypes from 'prop-types';
 import { fetchCurrencies as fetchCurrenciesThunk } from '../actions';
 
 class ExpensesForm extends Component {
+  constructor() {
+    super();
+
+    this.currencyList = this.currencyList.bind(this);
+  }
+
   componentDidMount() {
     const { fetchCurrencies } = this.props;
     fetchCurrencies();
   }
 
+  currencyList() {
+    const { currencies } = this.props;
+    const moedas = currencies.length > 0
+      ? Object.entries(currencies[0]).map((currency) => currency[0]) : null;
+    const currencyListWithoutUSDT = moedas
+      ? moedas.filter((moeda) => moeda !== 'USDT') : null;
+    return currencyListWithoutUSDT;
+  }
+
   render() {
+    const { currencies } = this.props;
+    console.log(currencies);
     return (
       <form action="">
         <label htmlFor="valor">
@@ -22,8 +39,14 @@ class ExpensesForm extends Component {
         <label htmlFor="moeda">
           Moeda:
           <select>
+            { this.currencyList()
+              ? this.currencyList().map((currency, index) => (
+                <option key={ index }>{ currency }</option>))
+              : null }
           </select>
         </label>
+
+        {this.currencyList()}
 
         <label htmlFor="metodo-pagamento">
           Método de pagamento:
@@ -65,6 +88,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 ExpensesForm.propTypes = {
   fetchCurrencies: propTypes.func.isRequired,
+  currencies: propTypes.arrayOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
