@@ -28,24 +28,24 @@ class ExpensesForm extends Component {
 
   render() {
     return (
-      <form action="">
+      <form>
         <label htmlFor="valor">
           Valor:
-          <input type="text" name="valor" />
+          <input id="valor" type="text" name="valor" />
         </label>
 
-        <label htmlFor="moeda">
+        <label htmlFor="currency">
           Moeda:
-          <select>
+          <select id="currency">
             { this.currencyList()
               ? this.currencyList().map((currency, index) => (
                 <option key={ index }>{ currency }</option>))
               : null }
           </select>
         </label>
-        <label htmlFor="metodo-pagamento">
+        <label htmlFor="payment-method">
           Método de pagamento:
-          <select>
+          <select id="payment-method">
             <option value="dinheiro">Dinheiro</option>
             <option value="credito">Cartão de crédito</option>
             <option value="debito">Cartão de débito</option>
@@ -54,7 +54,7 @@ class ExpensesForm extends Component {
 
         <label htmlFor="tag">
           Tag:
-          <select>
+          <select id="tag">
             <option value="alimentacao">Alimentação</option>
             <option value="lazer">Lazer</option>
             <option value="trabalho">Trabalho</option>
@@ -63,9 +63,9 @@ class ExpensesForm extends Component {
           </select>
         </label>
 
-        <label htmlFor="descricao-despesa">
+        <label htmlFor="expenses">
           Descrição:
-          <input type="text" name="descricao-despesa" />
+          <input id="expenses" type="text" name="descricao-despesa" />
         </label>
 
       </form>
