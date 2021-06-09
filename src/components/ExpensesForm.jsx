@@ -27,8 +27,6 @@ class ExpensesForm extends Component {
   }
 
   render() {
-    const { currencies } = this.props;
-    console.log(currencies);
     return (
       <form action="">
         <label htmlFor="valor">
@@ -45,9 +43,6 @@ class ExpensesForm extends Component {
               : null }
           </select>
         </label>
-
-        {this.currencyList()}
-
         <label htmlFor="metodo-pagamento">
           Método de pagamento:
           <select>
