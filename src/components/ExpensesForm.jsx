@@ -10,6 +10,7 @@ class ExpensesForm extends Component {
     super(props);
 
     this.currencyList = this.currencyList.bind(this);
+    // this.getCurrentQuote = this.getCurrentQuote.bind(this);
 
     const { expenses } = this.props;
 
@@ -20,6 +21,7 @@ class ExpensesForm extends Component {
       payment: '',
       tag: '',
       expenses: '',
+      exchangeRates: {},
     };
   }
 
@@ -28,13 +30,24 @@ class ExpensesForm extends Component {
     fetchCurrencies();
   }
 
+  // getCurrentQuote() {
+  //   const { addExpense, fetchCurrencies } = this.props;
+  //   return async () => {
+  //     const response = await fetchCurrencies();
+  //     this.setState({ exchangeRates: response });
+  //     addExpense(this.state);
+  //   };
+  //   // const { addExpense, fetchCurrencies } = this.props;
+  //   // const {exchangeRates} = this.state;
+  //   // const current = fetchCurrencies();
+  //   // this.setState({ exchangeRates: current });
+  //   // console.log(current);
+  // }
+
   currencyList() {
     const { currencies } = this.props;
-    const moedas = currencies.length > 0
+    return currencies.length > 0
       ? Object.entries(currencies[0]).map((currency) => currency[0]) : null;
-    const currencyListWithoutUSDT = moedas
-      ? moedas.filter((moeda) => moeda !== 'USDT') : null;
-    return currencyListWithoutUSDT;
   }
 
   handleChange({ target }) {
@@ -107,7 +120,7 @@ const mapDispatchToProps = (dispatch) => ({
 ExpensesForm.propTypes = {
   fetchCurrencies: propTypes.func.isRequired,
   currencies: propTypes.arrayOf(Object).isRequired,
-  addExpense: propTypes.func.isRequired,
+  // addExpense: propTypes.func.isRequired,
   expenses: propTypes.arrayOf(Object).isRequired,
 
 };

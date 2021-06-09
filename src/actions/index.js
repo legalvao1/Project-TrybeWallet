@@ -15,16 +15,25 @@ export const requestCurrencies = (currencies) => ({
   },
 });
 
-export const saveExpensesAction = (expenses) => ({
-  type: 'ADD_EXPENSES',
-  payload: {
-    expenses,
-  },
-});
+// SOURCE Plantão com Zambelli
+export const saveExpensesAction = (expenses) => async (dispatch) => {
+  const response = await fetchURL();
+  delete response.USDT;
+  expenses.exchangeRates = response;
+  dispatch({
+    type: 'ADD_EXPENSES',
+    payload: {
+      expenses,
+    },
+  });
+};
 
 export const fetchCurrencies = () => (dispatch) => {
   fetchURL()
-    .then((currenciesObject) => dispatch(
-      requestCurrencies(currenciesObject),
-    ));
+    .then((response) => {
+      const responseObject = response;
+      // **SOURCE https://igluonline.com/como-remover-uma-propriedade-de-um-objeto-javascript/ Zambelli */
+      delete responseObject.USDT;
+      dispatch(requestCurrencies(responseObject));
+    });
 };
