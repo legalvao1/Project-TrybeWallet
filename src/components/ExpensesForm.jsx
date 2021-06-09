@@ -10,6 +10,15 @@ class ExpensesForm extends Component {
     super();
 
     this.currencyList = this.currencyList.bind(this);
+
+    this.state = {
+      value: '',
+      currency: '',
+      payment: '',
+      tag: '',
+      expenses: ''
+
+    };
   }
 
   componentDidMount() {
@@ -26,26 +35,31 @@ class ExpensesForm extends Component {
     return currencyListWithoutUSDT;
   }
 
+  handleChange({ target }) {
+    const { id, value } = target;
+    this.setState({ [id]: value });
+  }
+
   render() {
     return (
       <form>
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor:
-          <input id="valor" type="text" name="valor" />
+          <input id="value" type="text" onChange={ (e) => this.handleChange(e) } />
         </label>
 
         <label htmlFor="currency">
           Moeda:
-          <select id="currency">
+          <select id="currency" onChange={ (e) => this.handleChange(e) }>
             { this.currencyList()
               ? this.currencyList().map((currency, index) => (
                 <option key={ index }>{ currency }</option>))
               : null }
           </select>
         </label>
-        <label htmlFor="payment-method">
+        <label htmlFor="payment">
           Método de pagamento:
-          <select id="payment-method">
+          <select id="payment" onChange={ (e) => this.handleChange(e) }>
             <option value="dinheiro">Dinheiro</option>
             <option value="credito">Cartão de crédito</option>
             <option value="debito">Cartão de débito</option>
@@ -54,18 +68,23 @@ class ExpensesForm extends Component {
 
         <label htmlFor="tag">
           Tag:
-          <select id="tag">
-            <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
+          <select id="tag" onChange={ (e) => this.handleChange(e) }>
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
           </select>
         </label>
 
         <label htmlFor="expenses">
           Descrição:
-          <input id="expenses" type="text" name="descricao-despesa" />
+          <input
+            id="expenses"
+            type="text"
+            name="descricao-despesa"
+            onChange={ (e) => this.handleChange(e) }
+          />
         </label>
 
       </form>
