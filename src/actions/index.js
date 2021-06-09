@@ -15,6 +15,13 @@ export const requestCurrencies = (currencies) => ({
   },
 });
 
+export const saveExpensesAction = (expenses) => ({
+  type: 'ADD_EXPENSES',
+  payload: {
+    expenses,
+  },
+});
+
 export const fetchCurrencies = () => (dispatch) => {
   fetchURL()
     .then((currenciesObject) => dispatch(
