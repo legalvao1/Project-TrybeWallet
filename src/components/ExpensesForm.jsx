@@ -10,7 +10,6 @@ class ExpensesForm extends Component {
     super(props);
 
     this.currencyList = this.currencyList.bind(this);
-    this.sendAction = this.sendAction.bind(this);
 
     this.state = {
       value: '',
@@ -38,14 +37,8 @@ class ExpensesForm extends Component {
     this.setState({ [id]: value });
   }
 
-  sendAction(id) {
-    const { addExpense } = this.props;
-    this.setState({ id });
-    addExpense(this.state);
-  }
-
   render() {
-    const { expenses } = this.props;
+    const { addExpense } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -88,7 +81,7 @@ class ExpensesForm extends Component {
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-        <button type="button" onClick={ () => this.sendAction(expenses.length) }>
+        <button type="button" onClick={ () => addExpense(this.state) }>
           Adicionar despesa
         </button>
       </form>
@@ -98,7 +91,7 @@ class ExpensesForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  expenses: state.wallet.expenses,
+  expenses: state.wallet.expenses.length,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -110,8 +103,6 @@ ExpensesForm.propTypes = {
   fetchCurrencies: propTypes.func.isRequired,
   currencies: propTypes.arrayOf(Object).isRequired,
   addExpense: propTypes.func.isRequired,
-  expenses: propTypes.arrayOf(Object).isRequired,
-
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
