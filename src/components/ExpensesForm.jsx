@@ -46,7 +46,6 @@ class ExpensesForm extends Component {
 
   render() {
     const { expenses } = this.props;
-    console.log(expenses.length);
     return (
       <form>
         <label htmlFor="value">
