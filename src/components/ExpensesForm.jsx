@@ -14,9 +14,9 @@ class ExpensesForm extends Component {
     this.state = {
       value: '',
       currency: '',
-      payment: '',
+      method: '',
       tag: '',
-      expenses: '',
+      description: '',
       exchangeRates: {},
     };
   }
@@ -54,12 +54,12 @@ class ExpensesForm extends Component {
               : null }
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de pagamento:
-          <select id="payment" onChange={ (e) => this.handleChange(e) }>
-            <option value="dinheiro">Dinheiro</option>
-            <option value="credito">Cartão de crédito</option>
-            <option value="debito">Cartão de débito</option>
+          <select id="method" onChange={ (e) => this.handleChange(e) }>
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
@@ -72,12 +72,11 @@ class ExpensesForm extends Component {
             <option>Saúde</option>
           </select>
         </label>
-        <label htmlFor="expenses">
+        <label htmlFor="description">
           Descrição:
           <input
-            id="expenses"
+            id="description"
             type="text"
-            name="descricao-despesa"
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
