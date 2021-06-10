@@ -23,8 +23,10 @@ class Table extends Component {
         <td>{ exchangeRates[currency].ask }</td>
         <td>{ currency }</td>
         <td>{ exchangeRates[currency].name }</td>
-        <td>{ parseFloat(value) * parseFloat(exchangeRates[currency].ask) }</td>
-        <td>Real Brasileiro</td>
+        <td>
+          { (parseFloat(value) * parseFloat(exchangeRates[currency].ask)).toFixed(2) }
+        </td>
+        <td>Real</td>
       </tr>));
   }
 

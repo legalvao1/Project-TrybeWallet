@@ -36,7 +36,7 @@ class Wallet extends React.Component {
           <div>
             <span data-testid="email-field">{ loggedUserEmail }</span>
             <span>Despesa total: R$</span>
-            <span data-testid="total-field">{ this.sum() }</span>
+            <span data-testid="total-field">{ this.sum().toFixed(2) }</span>
             <span data-testid="header-currency-field">BRL</span>
           </div>
         </header>
