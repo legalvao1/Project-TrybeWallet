@@ -13,9 +13,14 @@ class Wallet extends React.Component {
   }
 
   sum() {
-    const { totalExpenses } = this.props;
-    const INITIAL_VALUE = 0;
-    return !totalExpenses ? INITIAL_VALUE : totalExpenses;
+    const { expenses } = this.props;
+    let INITIAL_VALUE = 0;
+
+    expenses.forEach(({ value, currency, exchangeRates }) => {
+      INITIAL_VALUE += parseFloat(value) * parseFloat(exchangeRates[currency].ask);
+    });
+
+    return INITIAL_VALUE;
   }
 
   render() {
@@ -42,11 +47,12 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   loggedUserEmail: state.user.email,
   totalExpenses: state.wallet.totalExpenses,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
   loggedUserEmail: propTypes.string.isRequired,
-  totalExpenses: propTypes.number.isRequired,
+  expenses: propTypes.arrayOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Wallet);
