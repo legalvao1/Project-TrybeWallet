@@ -10,12 +10,9 @@ class ExpensesForm extends Component {
     super(props);
 
     this.currencyList = this.currencyList.bind(this);
-    // this.getCurrentQuote = this.getCurrentQuote.bind(this);
-
-    const { expenses } = this.props;
+    this.sendAction = this.sendAction.bind(this);
 
     this.state = {
-      id: expenses.length,
       value: '',
       currency: '',
       payment: '',
@@ -30,20 +27,6 @@ class ExpensesForm extends Component {
     fetchCurrencies();
   }
 
-  // getCurrentQuote() {
-  //   const { addExpense, fetchCurrencies } = this.props;
-  //   return async () => {
-  //     const response = await fetchCurrencies();
-  //     this.setState({ exchangeRates: response });
-  //     addExpense(this.state);
-  //   };
-  //   // const { addExpense, fetchCurrencies } = this.props;
-  //   // const {exchangeRates} = this.state;
-  //   // const current = fetchCurrencies();
-  //   // this.setState({ exchangeRates: current });
-  //   // console.log(current);
-  // }
-
   currencyList() {
     const { currencies } = this.props;
     return currencies.length > 0
@@ -55,8 +38,15 @@ class ExpensesForm extends Component {
     this.setState({ [id]: value });
   }
 
-  render() {
+  sendAction(id) {
     const { addExpense } = this.props;
+    this.setState({ id });
+    addExpense(this.state);
+  }
+
+  render() {
+    const { expenses } = this.props;
+    console.log(expenses.length);
     return (
       <form>
         <label htmlFor="value">
@@ -99,7 +89,7 @@ class ExpensesForm extends Component {
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-        <button type="button" onClick={ () => addExpense(this.state) }>
+        <button type="button" onClick={ () => this.sendAction(expenses.length) }>
           Adicionar despesa
         </button>
       </form>
@@ -120,7 +110,7 @@ const mapDispatchToProps = (dispatch) => ({
 ExpensesForm.propTypes = {
   fetchCurrencies: propTypes.func.isRequired,
   currencies: propTypes.arrayOf(Object).isRequired,
-  // addExpense: propTypes.func.isRequired,
+  addExpense: propTypes.func.isRequired,
   expenses: propTypes.arrayOf(Object).isRequired,
 
 };
