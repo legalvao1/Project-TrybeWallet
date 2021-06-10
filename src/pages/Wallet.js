@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 import ExpensesForm from '../components/ExpensesForm';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -12,6 +13,7 @@ class Wallet extends React.Component {
     this.sum = this.sum.bind(this);
   }
 
+  // Plantão Zambelli
   sum() {
     const { expenses } = this.props;
     let INITIAL_VALUE = 0;
@@ -39,6 +41,7 @@ class Wallet extends React.Component {
           </div>
         </header>
         <ExpensesForm />
+        <Table />
       </main>
     );
   }
