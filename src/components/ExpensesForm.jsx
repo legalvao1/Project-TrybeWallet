@@ -12,7 +12,7 @@ class ExpensesForm extends Component {
     this.currencyList = this.currencyList.bind(this);
 
     this.state = {
-      value: '',
+      value: 0,
       currency: '',
       method: '',
       tag: '',

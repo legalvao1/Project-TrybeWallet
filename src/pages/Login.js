@@ -38,7 +38,6 @@ class Login extends React.Component {
   redirectToPath() {
     const { email } = this.state;
     const { userLogin, history } = this.props;
-    console.log(history);
     userLogin(email);
     // **SOURCE https://qastack.com.br/programming/45089386/what-is-the-best-way-to-redirect-a-page-using-react-router */
     history.push('/carteira');

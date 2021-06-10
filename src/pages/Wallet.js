@@ -9,13 +9,16 @@ class Wallet extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      total: 0,
-    };
+    this.sum = this.sum.bind(this);
+  }
+
+  sum() {
+    const { totalExpenses } = this.props;
+    const INITIAL_VALUE = 0;
+    return !totalExpenses ? INITIAL_VALUE : totalExpenses;
   }
 
   render() {
-    const { total } = this.state;
     const { loggedUserEmail } = this.props;
     return (
       <main>
@@ -25,7 +28,8 @@ class Wallet extends React.Component {
           </div>
           <div>
             <span data-testid="email-field">{ loggedUserEmail }</span>
-            <span data-testid="total-field">{`Despesa total: R$ ${total},00`}</span>
+            <span>Despesa total: R$</span>
+            <span data-testid="total-field">{ this.sum() }</span>
             <span data-testid="header-currency-field">BRL</span>
           </div>
         </header>
@@ -37,10 +41,12 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   loggedUserEmail: state.user.email,
+  totalExpenses: state.wallet.totalExpenses,
 });
 
 Wallet.propTypes = {
   loggedUserEmail: propTypes.string.isRequired,
+  totalExpenses: propTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Wallet);

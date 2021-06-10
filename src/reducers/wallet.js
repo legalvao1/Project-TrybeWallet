@@ -1,7 +1,10 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+const INITIAL_VALUE = 0;
+
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  totalExpenses: INITIAL_VALUE,
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -18,6 +21,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
         ...action.payload.expenses,
         id: state.expenses.length,
       }],
+      totalExpenses: state.totalExpenses + parseFloat(action.payload.expenses.value),
     };
   default:
     return state;
