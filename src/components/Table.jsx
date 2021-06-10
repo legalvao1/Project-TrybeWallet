@@ -27,6 +27,9 @@ class Table extends Component {
           { (parseFloat(value) * parseFloat(exchangeRates[currency].ask)).toFixed(2) }
         </td>
         <td>Real</td>
+        <th>
+          <button type="button">x</button>
+        </th>
       </tr>));
   }
 
