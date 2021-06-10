@@ -12,7 +12,6 @@ class Table extends Component {
 
   tableExpense() {
     const { expenses } = this.props;
-    console.log(expenses);
     return expenses.map((
       { value, currency, method, tag, description, exchangeRates, id },
     ) => (
@@ -20,9 +19,9 @@ class Table extends Component {
         <td>{ description }</td>
         <td>{ tag }</td>
         <td>{ method }</td>
-        <td>{ exchangeRates[currency].ask }</td>
-        <td>{ currency }</td>
+        <td>{ value }</td>
         <td>{ exchangeRates[currency].name }</td>
+        <td>{ parseFloat(exchangeRates[currency].ask).toFixed(2) }</td>
         <td>
           { (parseFloat(value) * parseFloat(exchangeRates[currency].ask)).toFixed(2) }
         </td>
