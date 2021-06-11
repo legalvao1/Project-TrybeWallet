@@ -19,6 +19,15 @@ const walletReducer = (state = INITIAL_STATE, action) => {
         id: state.expenses.length,
       }],
     };
+  // **SOURCE https://forum.freecodecamp.org/t/freecodecamp-challenge-guide-remove-an-item-from-an-array/301447 */
+  case 'REMOVE_ITEM':
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.slice(0, action.payload.index),
+        ...state.expenses.slice(action.payload.index + 1, state.expenses.length),
+      ],
+    };
   default:
     return state;
   }

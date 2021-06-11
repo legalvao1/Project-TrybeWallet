@@ -37,3 +37,10 @@ export const fetchCurrencies = () => (dispatch) => {
       dispatch(requestCurrencies(responseObject));
     });
 };
+
+export const removeItemAction = (index) => ({
+  type: 'REMOVE_ITEM',
+  payload: {
+    index,
+  },
+});
