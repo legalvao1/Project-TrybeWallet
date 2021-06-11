@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import propTypes from 'prop-types';
 
+// import { FaPencilAlt } from 'react-icons/fa';
+
 import { removeItemAction } from '../actions';
 
 class Table extends Component {
@@ -35,6 +37,13 @@ class Table extends Component {
             onClick={ () => removeItem(index) }
           >
             x
+          </button>
+          <button
+            data-testid="edit-btn"
+            type="button"
+            onClick={ () => {} }
+          >
+            Editar despesa
           </button>
         </th>
       </tr>));
