@@ -44,3 +44,10 @@ export const removeItemAction = (index) => ({
     index,
   },
 });
+
+export const editExpenseAction = (expenseObject) => ({
+  type: 'EDIT_EXPENSE',
+  payload: {
+    expenseObject,
+  },
+});

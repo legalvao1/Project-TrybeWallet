@@ -10,9 +10,11 @@ class ExpensesForm extends Component {
     super(props);
 
     this.currencyList = this.currencyList.bind(this);
+    this.sendAddExpense = this.sendAddExpense.bind(this);
+    this.editItem = this.editItem.bind(this);
 
     this.state = {
-      value: 0,
+      value: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
@@ -37,26 +39,62 @@ class ExpensesForm extends Component {
     this.setState({ [id]: value });
   }
 
-  render() {
+  sendAddExpense() {
     const { addExpense } = this.props;
+    addExpense(this.state);
+    this.setState({
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
+      exchangeRates: {},
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevProps);
+    console.log(prevState);
+    const { editExpense } = this.props;
+    if (editExpense !== prevProps.editExpense) {
+      this.editItem(editExpense);
+    }
+  }
+
+  editItem(expense) {
+    const {
+      value, currency, method, tag, description, exchangeRates,
+    } = expense;
+    this.setState({
+      value,
+      currency,
+      method,
+      tag,
+      description,
+      exchangeRates,
+    });
+  }
+
+  render() {
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form>
         <label htmlFor="value">
           Valor:
-          <input id="value" type="text" onChange={ (e) => this.handleChange(e) } />
+          <input id="value" value={ value } type="text" onChange={ (e) => this.handleChange(e) } />
         </label>
         <label htmlFor="currency">
           Moeda:
-          <select id="currency" onChange={ (e) => this.handleChange(e) }>
+          <select id="currency" value={ currency } onChange={ (e) => this.handleChange(e) }>
             { this.currencyList()
-              ? this.currencyList().map((currency, index) => (
-                <option key={ index }>{ currency }</option>))
+              ? this.currencyList().map((currencyItem, index) => (
+                <option key={ index }>{ currencyItem }</option>))
               : null }
           </select>
         </label>
         <label htmlFor="method">
           Método de pagamento:
-          <select id="method" onChange={ (e) => this.handleChange(e) }>
+          <select id="method" value={ method } onChange={ (e) => this.handleChange(e) }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -64,7 +102,7 @@ class ExpensesForm extends Component {
         </label>
         <label htmlFor="tag">
           Tag:
-          <select id="tag" onChange={ (e) => this.handleChange(e) }>
+          <select id="tag" value={ tag } onChange={ (e) => this.handleChange(e) }>
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -77,10 +115,11 @@ class ExpensesForm extends Component {
           <input
             id="description"
             type="text"
+            value={ description }
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-        <button type="button" onClick={ () => addExpense(this.state) }>
+        <button type="button" onClick={ () => this.sendAddExpense() }>
           Adicionar despesa
         </button>
       </form>
@@ -91,6 +130,7 @@ class ExpensesForm extends Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses.length,
+  editExpense: state.wallet.editExpense,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -102,6 +142,7 @@ ExpensesForm.propTypes = {
   fetchCurrencies: propTypes.func.isRequired,
   currencies: propTypes.arrayOf(Object).isRequired,
   addExpense: propTypes.func.isRequired,
+  editExpense: propTypes.objectOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);

@@ -2,6 +2,7 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  editExpense: {},
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -27,6 +28,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
         ...state.expenses.slice(0, action.payload.index),
         ...state.expenses.slice(action.payload.index + 1, state.expenses.length),
       ],
+    };
+  case 'EDIT_EXPENSE':
+    return {
+      ...state,
+      editExpenseId: action.payload.expenseObject,
     };
   default:
     return state;

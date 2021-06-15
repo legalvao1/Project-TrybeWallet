@@ -5,13 +5,14 @@ import propTypes from 'prop-types';
 
 // import { FaPencilAlt } from 'react-icons/fa';
 
-import { removeItemAction } from '../actions';
+import { removeItemAction, editExpenseAction } from '../actions';
 
 class Table extends Component {
   constructor(props) {
     super(props);
 
     this.tableExpense = this.tableExpense.bind(this);
+    this.editInfo = this.editInfo.bind(this);
   }
 
   tableExpense() {
@@ -41,12 +42,19 @@ class Table extends Component {
           <button
             data-testid="edit-btn"
             type="button"
-            onClick={ () => {} }
+            onClick={ () => this.editInfo(id) }
           >
             Editar despesa
           </button>
         </th>
       </tr>));
+  }
+
+  editInfo(editId) {
+    const { expenses, editItem } = this.props;
+    const editObj = expenses.find(({ id }) => id === editId);
+    editItem(editObj);
+    console.log(editObj);
   }
 
   render() {
@@ -80,11 +88,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatcToProps = (dispatch) => ({
   removeItem: (index) => dispatch(removeItemAction(index)),
+  editItem: (id) => dispatch(editExpenseAction(id)),
 });
 
 Table.propTypes = {
   expenses: propTypes.arrayOf(Object).isRequired,
   removeItem: propTypes.func.isRequired,
+  editItem: propTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatcToProps)(Table);
