@@ -5,14 +5,21 @@ import propTypes from 'prop-types';
 
 // import { FaPencilAlt } from 'react-icons/fa';
 
-import { removeItemAction, editExpenseAction } from '../actions';
+import { removeItemAction, setExpenseToEditAction } from '../actions';
 
 class Table extends Component {
   constructor(props) {
     super(props);
 
     this.tableExpense = this.tableExpense.bind(this);
-    this.editInfo = this.editInfo.bind(this);
+    this.editInfo = this.setExpenseToEdit.bind(this);
+  }
+
+  setExpenseToEdit(editId) {
+    const { expenses, editItem } = this.props;
+    const editObj = expenses.find(({ id }) => id === editId);
+    editItem(editObj);
+    console.log(editObj);
   }
 
   tableExpense() {
@@ -42,19 +49,12 @@ class Table extends Component {
           <button
             data-testid="edit-btn"
             type="button"
-            onClick={ () => this.editInfo(id) }
+            onClick={ () => this.setExpenseToEdit(id) }
           >
             Editar despesa
           </button>
         </th>
       </tr>));
-  }
-
-  editInfo(editId) {
-    const { expenses, editItem } = this.props;
-    const editObj = expenses.find(({ id }) => id === editId);
-    editItem(editObj);
-    console.log(editObj);
   }
 
   render() {
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatcToProps = (dispatch) => ({
   removeItem: (index) => dispatch(removeItemAction(index)),
-  editItem: (id) => dispatch(editExpenseAction(id)),
+  editItem: (expense) => dispatch(setExpenseToEditAction(expense)),
 });
 
 Table.propTypes = {

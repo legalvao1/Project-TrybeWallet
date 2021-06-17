@@ -29,10 +29,10 @@ const walletReducer = (state = INITIAL_STATE, action) => {
         ...state.expenses.slice(action.payload.index + 1, state.expenses.length),
       ],
     };
-  case 'EDIT_EXPENSE':
+  case 'SET_EDIT_EXPENSE':
     return {
       ...state,
-      editExpenseId: action.payload.expenseObject,
+      editExpense: action.payload.expenseObject,
     };
   default:
     return state;

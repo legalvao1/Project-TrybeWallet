@@ -45,8 +45,8 @@ export const removeItemAction = (index) => ({
   },
 });
 
-export const editExpenseAction = (expenseObject) => ({
-  type: 'EDIT_EXPENSE',
+export const setExpenseToEditAction = (expenseObject) => ({
+  type: 'SET_EDIT_EXPENSE',
   payload: {
     expenseObject,
   },

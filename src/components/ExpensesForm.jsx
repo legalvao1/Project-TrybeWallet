@@ -12,6 +12,7 @@ class ExpensesForm extends Component {
     this.currencyList = this.currencyList.bind(this);
     this.sendAddExpense = this.sendAddExpense.bind(this);
     this.editItem = this.editItem.bind(this);
+    this.renderCurrencies = this.renderCurrencies.bind(this);
 
     this.state = {
       value: '',
@@ -26,6 +27,15 @@ class ExpensesForm extends Component {
   componentDidMount() {
     const { fetchCurrencies } = this.props;
     fetchCurrencies();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { editExpense } = this.props;
+    console.log(editExpense);
+    console.log(prevProps.editExpense);
+    if (prevProps.editExpense !== editExpense) {
+      this.editItem(editExpense);
+    }
   }
 
   currencyList() {
@@ -52,27 +62,27 @@ class ExpensesForm extends Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps);
-    console.log(prevState);
-    const { editExpense } = this.props;
-    if (editExpense !== prevProps.editExpense) {
-      this.editItem(editExpense);
-    }
+  editItem(expense) {
+    this.setState(expense);
+    console.log(this.state);
   }
 
-  editItem(expense) {
-    const {
-      value, currency, method, tag, description, exchangeRates,
-    } = expense;
-    this.setState({
-      value,
-      currency,
-      method,
-      tag,
-      description,
-      exchangeRates,
-    });
+  renderCurrencies(currency) {
+    return (
+      <label htmlFor="currency">
+        Moeda:
+        <select
+          id="currency"
+          value={ currency }
+          onChange={ (e) => this.handleChange(e) }
+        >
+          { this.currencyList()
+            ? this.currencyList().map((currencyItem, index) => (
+              <option key={ index }>{ currencyItem }</option>))
+            : null }
+        </select>
+      </label>
+    );
   }
 
   render() {
@@ -81,17 +91,16 @@ class ExpensesForm extends Component {
       <form>
         <label htmlFor="value">
           Valor:
-          <input id="value" value={ value } type="text" onChange={ (e) => this.handleChange(e) } />
+          <input
+            id="value"
+            value={ value }
+            type="text"
+            onChange={ (e) => this.handleChange(e) }
+          />
         </label>
-        <label htmlFor="currency">
-          Moeda:
-          <select id="currency" value={ currency } onChange={ (e) => this.handleChange(e) }>
-            { this.currencyList()
-              ? this.currencyList().map((currencyItem, index) => (
-                <option key={ index }>{ currencyItem }</option>))
-              : null }
-          </select>
-        </label>
+
+        {this.renderCurrencies(currency)}
+
         <label htmlFor="method">
           Método de pagamento:
           <select id="method" value={ method } onChange={ (e) => this.handleChange(e) }>
