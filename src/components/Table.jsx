@@ -19,7 +19,7 @@ class Table extends Component {
     const { expenses, editItem } = this.props;
     const editObj = expenses.find(({ id }) => id === editId);
     editItem(editObj);
-    console.log(editObj);
+    // console.log(editObj);
   }
 
   tableExpense() {

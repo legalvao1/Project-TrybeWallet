@@ -17,6 +17,7 @@ class Wallet extends React.Component {
   sum() {
     const { expenses } = this.props;
     let INITIAL_VALUE = 0;
+    console.log(expenses);
 
     expenses.forEach(({ value, currency, exchangeRates }) => {
       INITIAL_VALUE += parseFloat(value) * parseFloat(exchangeRates[currency].ask);

@@ -2,7 +2,7 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  editExpense: {},
+  // editExpense: {},
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -32,7 +32,13 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case 'SET_EDIT_EXPENSE':
     return {
       ...state,
-      editExpense: action.payload.expenseObject,
+      editExpense: [action.payload.expenseObject],
+    };
+  case 'UPDATE_EXPENSE':
+    return {
+      ...state,
+      expenses: state.expenses.map((expense) => (
+        (expense.id === action.payload.id) ? action.payload.expense : expense)),
     };
   default:
     return state;

@@ -51,3 +51,11 @@ export const setExpenseToEditAction = (expenseObject) => ({
     expenseObject,
   },
 });
+
+export const updateExpenseAction = (id, expense) => ({
+  type: 'UPDATE_EXPENSE',
+  payload: {
+    id,
+    expense,
+  },
+});

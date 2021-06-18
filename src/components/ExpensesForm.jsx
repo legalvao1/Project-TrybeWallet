@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import propTypes from 'prop-types';
 
-import { fetchCurrencies as fetchCurrenciesThunk, saveExpensesAction } from '../actions';
+import { fetchCurrencies as fetchCurrenciesThunk,
+  saveExpensesAction, updateExpenseAction } from '../actions';
 
 class ExpensesForm extends Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class ExpensesForm extends Component {
     this.sendAddExpense = this.sendAddExpense.bind(this);
     this.editItem = this.editItem.bind(this);
     this.renderCurrencies = this.renderCurrencies.bind(this);
+    this.renderMethod = this.renderMethod.bind(this);
+    this.renderTag = this.renderTag.bind(this);
 
     this.state = {
       value: '',
@@ -31,10 +34,10 @@ class ExpensesForm extends Component {
 
   componentDidUpdate(prevProps) {
     const { editExpense } = this.props;
-    console.log(editExpense);
-    console.log(prevProps.editExpense);
+    // console.log(editExpense);
+    // console.log(prevProps.editExpense);
     if (prevProps.editExpense !== editExpense) {
-      this.editItem(editExpense);
+      this.editItem(editExpense[0]);
     }
   }
 
@@ -48,10 +51,15 @@ class ExpensesForm extends Component {
     const { id, value } = target;
     this.setState({ [id]: value });
   }
+  // ** EDITAR SOURCE https://www.youtube.com/watch?v=AbZ2EErDSXU */
 
   sendAddExpense() {
-    const { addExpense } = this.props;
-    addExpense(this.state);
+    const { addExpense, editExpense, updateExpense } = this.props;
+    if (editExpense) {
+      updateExpense(editExpense[0].id, this.state);
+    } else {
+      addExpense(this.state);
+    }
     this.setState({
       value: '',
       currency: 'USD',
@@ -64,7 +72,7 @@ class ExpensesForm extends Component {
 
   editItem(expense) {
     this.setState(expense);
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   renderCurrencies(currency) {
@@ -75,11 +83,50 @@ class ExpensesForm extends Component {
           id="currency"
           value={ currency }
           onChange={ (e) => this.handleChange(e) }
+          data-testid="currency-input"
         >
           { this.currencyList()
             ? this.currencyList().map((currencyItem, index) => (
               <option key={ index }>{ currencyItem }</option>))
             : null }
+        </select>
+      </label>
+    );
+  }
+
+  renderMethod(method) {
+    return (
+      <label htmlFor="method">
+        Método de pagamento:
+        <select
+          id="method"
+          data-testid="method-input"
+          value={ method }
+          onChange={ (e) => this.handleChange(e) }
+        >
+          <option>Dinheiro</option>
+          <option>Cartão de crédito</option>
+          <option>Cartão de débito</option>
+        </select>
+      </label>
+    );
+  }
+
+  renderTag(tag) {
+    return (
+      <label htmlFor="tag">
+        Tag:
+        <select
+          id="tag"
+          data-testid="tag-input"
+          value={ tag }
+          onChange={ (e) => this.handleChange(e) }
+        >
+          <option>Alimentação</option>
+          <option>Lazer</option>
+          <option>Trabalho</option>
+          <option>Transporte</option>
+          <option>Saúde</option>
         </select>
       </label>
     );
@@ -93,6 +140,7 @@ class ExpensesForm extends Component {
           Valor:
           <input
             id="value"
+            data-testid="value-input"
             value={ value }
             type="text"
             onChange={ (e) => this.handleChange(e) }
@@ -101,28 +149,15 @@ class ExpensesForm extends Component {
 
         {this.renderCurrencies(currency)}
 
-        <label htmlFor="method">
-          Método de pagamento:
-          <select id="method" value={ method } onChange={ (e) => this.handleChange(e) }>
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag:
-          <select id="tag" value={ tag } onChange={ (e) => this.handleChange(e) }>
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
+        {this.renderMethod(method)}
+
+        {this.renderTag(tag)}
+
         <label htmlFor="description">
           Descrição:
           <input
             id="description"
+            data-testid="description-input"
             type="text"
             value={ description }
             onChange={ (e) => this.handleChange(e) }
@@ -138,13 +173,14 @@ class ExpensesForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  expenses: state.wallet.expenses.length,
+  expenses: state.wallet.expenses,
   editExpense: state.wallet.editExpense,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrenciesThunk()),
   addExpense: (state) => dispatch(saveExpensesAction(state)),
+  updateExpense: (id, state) => dispatch(updateExpenseAction(id, state)),
 });
 
 ExpensesForm.propTypes = {
@@ -152,6 +188,7 @@ ExpensesForm.propTypes = {
   currencies: propTypes.arrayOf(Object).isRequired,
   addExpense: propTypes.func.isRequired,
   editExpense: propTypes.objectOf(Object).isRequired,
+  updateExpense: propTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
