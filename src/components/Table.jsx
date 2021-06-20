@@ -31,7 +31,7 @@ class Table extends Component {
         <td>{ tag }</td>
         <td>{ method }</td>
         <td>{ value }</td>
-        <td>{ exchangeRates[currency].name }</td>
+        <td>{ (exchangeRates[currency].name).split('/')[0]}</td>
         <td>{ parseFloat(exchangeRates[currency].ask).toFixed(2) }</td>
         <td>
           { (parseFloat(value) * parseFloat(exchangeRates[currency].ask)).toFixed(2) }
@@ -50,7 +50,7 @@ class Table extends Component {
             type="button"
             onClick={ () => this.setExpenseToEdit(id) }
           >
-            Editar despesa
+            Editar
           </button>
         </th>
       </tr>));

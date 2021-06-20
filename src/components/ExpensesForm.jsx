@@ -133,6 +133,7 @@ class ExpensesForm extends Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
+    const { editState } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -163,7 +164,7 @@ class ExpensesForm extends Component {
           />
         </label>
         <button type="button" onClick={ () => this.sendAddExpense() }>
-          Adicionar despesa
+          {editState ? 'Editar despesa' : 'Adicionar despesa'}
         </button>
       </form>
     );
@@ -187,7 +188,7 @@ ExpensesForm.propTypes = {
   fetchCurrencies: propTypes.func.isRequired,
   currencies: propTypes.arrayOf(Object).isRequired,
   addExpense: propTypes.func.isRequired,
-  editExpense: propTypes.objectOf(Object).isRequired,
+  editExpense: propTypes.arrayOf(Object).isRequired,
   updateExpense: propTypes.func.isRequired,
   editState: propTypes.bool.isRequired,
 };
