@@ -54,8 +54,8 @@ class ExpensesForm extends Component {
   // ** EDITAR SOURCE https://www.youtube.com/watch?v=AbZ2EErDSXU */
 
   sendAddExpense() {
-    const { addExpense, editExpense, updateExpense } = this.props;
-    if (editExpense) {
+    const { addExpense, editExpense, updateExpense, editState } = this.props;
+    if (editExpense && editState) {
       updateExpense(editExpense[0].id, this.state);
     } else {
       addExpense(this.state);
@@ -72,7 +72,6 @@ class ExpensesForm extends Component {
 
   editItem(expense) {
     this.setState(expense);
-    // console.log(this.state);
   }
 
   renderCurrencies(currency) {
@@ -175,6 +174,7 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
   editExpense: state.wallet.editExpense,
+  editState: state.wallet.editState,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -189,6 +189,7 @@ ExpensesForm.propTypes = {
   addExpense: propTypes.func.isRequired,
   editExpense: propTypes.objectOf(Object).isRequired,
   updateExpense: propTypes.func.isRequired,
+  editState: propTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);

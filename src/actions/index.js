@@ -49,6 +49,7 @@ export const setExpenseToEditAction = (expenseObject) => ({
   type: 'SET_EDIT_EXPENSE',
   payload: {
     expenseObject,
+    bool: true,
   },
 });
 
@@ -57,5 +58,6 @@ export const updateExpenseAction = (id, expense) => ({
   payload: {
     id,
     expense,
+    bool: false,
   },
 });

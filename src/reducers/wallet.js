@@ -33,12 +33,14 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       editExpense: [action.payload.expenseObject],
+      editState: action.payload.bool,
     };
   case 'UPDATE_EXPENSE':
     return {
       ...state,
       expenses: state.expenses.map((expense) => (
         (expense.id === action.payload.id) ? action.payload.expense : expense)),
+      editState: action.payload.bool,
     };
   default:
     return state;
