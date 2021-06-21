@@ -37,7 +37,7 @@ class Table extends Component {
           { (parseFloat(value) * parseFloat(exchangeRates[currency].ask)).toFixed(2) }
         </td>
         <td>Real</td>
-        <th>
+        <td>
           <button
             data-testid="delete-btn"
             type="button"
@@ -52,7 +52,7 @@ class Table extends Component {
           >
             Editar
           </button>
-        </th>
+        </td>
       </tr>));
   }
 
