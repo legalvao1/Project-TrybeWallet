@@ -42,6 +42,7 @@ class Table extends Component {
             data-testid="delete-btn"
             type="button"
             onClick={ () => removeItem(index) }
+            className="btn btn-danger"
           >
             x
           </button>
@@ -49,6 +50,7 @@ class Table extends Component {
             data-testid="edit-btn"
             type="button"
             onClick={ () => this.setExpenseToEdit(id) }
+            className="btn btn-warning"
           >
             Editar
           </button>
@@ -58,7 +60,7 @@ class Table extends Component {
 
   render() {
     return (
-      <table>
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Descrição</th>

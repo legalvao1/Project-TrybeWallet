@@ -6,6 +6,8 @@ import propTypes from 'prop-types';
 
 import { userLoginAction } from '../actions';
 
+import currencies from '../images/currencies.png';
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -45,30 +47,52 @@ class Login extends React.Component {
 
   render() {
     const { buttonDisabled } = this.state;
-
     return (
-      <main>
-        <h1>Login</h1>
-        <input
-          data-testid="email-input"
-          name="email"
-          placeholder="Digite seu e-mail"
-          onChange={ (event) => this.handleChange(event) }
-        />
-        <input
-          data-testid="password-input"
-          name="password"
-          placeholder="Digite sua senha"
-          onChange={ (event) => this.handleChange(event) }
-        />
-        <button
-          type="button"
-          disabled={ buttonDisabled }
-          onClick={ () => this.redirectToPath() }
-        >
-          Entrar
-        </button>
-      </main>
+      <div className="container">
+        <div className="row" style={ { 'margin-top': '20px' } }>
+          <div className="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <h2>Welcome to TrybeWallet!</h2>
+            <form>
+              <div><img src={ currencies } width="120px" alt="currency-icon" /></div>
+              <fieldset>
+                <h3>Please Sign In</h3>
+                <hr class="colorgraph" />
+                <div className="form-group">
+                  <input
+                    data-testid="email-input"
+                    name="email"
+                    placeholder="Digite seu e-mail"
+                    onChange={ (event) => this.handleChange(event) }
+                    className="form-control input-lg" 
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    data-testid="password-input"
+                    name="password"
+                    placeholder="Digite sua senha"
+                    onChange={ (event) => this.handleChange(event) }
+                    className="form-control input-lg" 
+                  />
+                </div>
+                <hr className="colorgraph" />
+                <div className="row">
+                  <div className="col-xs-6 col-sm-6 col-md-6">
+                    <button
+                      type="button"
+                      disabled={ buttonDisabled }
+                      onClick={ () => this.redirectToPath() }
+                      className="btn btn-lg btn-success btn-block"
+                    >
+                      Entrar
+                    </button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
 }

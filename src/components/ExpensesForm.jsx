@@ -48,8 +48,8 @@ class ExpensesForm extends Component {
   }
 
   handleChange({ target }) {
-    const { id, value } = target;
-    this.setState({ [id]: value });
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
   // ** EDITAR SOURCE https://www.youtube.com/watch?v=AbZ2EErDSXU */
 
@@ -76,13 +76,14 @@ class ExpensesForm extends Component {
 
   renderCurrencies(currency) {
     return (
-      <label htmlFor="currency">
+      <label htmlFor="currency" className="form-label">
         Moeda:
         <select
-          id="currency"
+          name="currency"
           value={ currency }
           onChange={ (e) => this.handleChange(e) }
           data-testid="currency-input"
+          className="form-select"
         >
           { this.currencyList()
             ? this.currencyList().map((currencyItem, index) => (
@@ -95,13 +96,14 @@ class ExpensesForm extends Component {
 
   renderMethod(method) {
     return (
-      <label htmlFor="method">
+      <label htmlFor="method" className="form-label">
         Método de pagamento:
         <select
-          id="method"
+          name="method"
           data-testid="method-input"
           value={ method }
           onChange={ (e) => this.handleChange(e) }
+          className="form-select form-select-lg mb-3"
         >
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
@@ -113,13 +115,14 @@ class ExpensesForm extends Component {
 
   renderTag(tag) {
     return (
-      <label htmlFor="tag">
+      <label htmlFor="tag" className="form-label">
         Tag:
         <select
-          id="tag"
+          name="tag"
           data-testid="tag-input"
           value={ tag }
           onChange={ (e) => this.handleChange(e) }
+          className="form-select"
         >
           <option>Alimentação</option>
           <option>Lazer</option>
@@ -135,15 +138,16 @@ class ExpensesForm extends Component {
     const { value, description, currency, method, tag } = this.state;
     const { editState } = this.props;
     return (
-      <form>
+      <form className="mb-3">
         <label htmlFor="value">
           Valor:
           <input
-            id="value"
+            name="value"
             data-testid="value-input"
             value={ value }
             type="text"
             onChange={ (e) => this.handleChange(e) }
+            className="form-control"
           />
         </label>
 
@@ -156,14 +160,15 @@ class ExpensesForm extends Component {
         <label htmlFor="description">
           Descrição:
           <input
-            id="description"
+            name="description"
             data-testid="description-input"
             type="text"
             value={ description }
             onChange={ (e) => this.handleChange(e) }
+            className="form-control"
           />
         </label>
-        <button type="button" onClick={ () => this.sendAddExpense() }>
+        <button type="button" onClick={ () => this.sendAddExpense() } className="btn btn-success">
           {editState ? 'Editar despesa' : 'Adicionar despesa'}
         </button>
       </form>
