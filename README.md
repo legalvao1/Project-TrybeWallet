@@ -24,7 +24,7 @@ Para iniciar o desenvolvimento, é necessário clonar o repositório do GitHub, 
 ```shell
 cd "diretorio de sua preferencia"
 
-git clone git@github.com:legalvao1/sd-010-b-project-trybewallet.git
+git clone git@github.com:legalvao1/Project-TrybeWallet.git
 
 cd Project-TrybeWallet
 
