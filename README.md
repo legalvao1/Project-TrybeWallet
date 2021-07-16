@@ -26,8 +26,6 @@ cd "diretorio de sua preferencia"
 
 git clone git@github.com:legalvao1/sd-010-b-project-trybewallet.git
 
-git checkout leticia-galvao-project-trybewallet
-
 cd Project-TrybeWallet
 
 npm install
