@@ -6,6 +6,9 @@ import propTypes from 'prop-types';
 import ExpensesForm from '../components/ExpensesForm';
 import Table from '../components/Table';
 
+import money from '../images/bolsa-de-dinheiro.png';
+import email from '../images/o-email.png';
+
 class Wallet extends React.Component {
   constructor() {
     super();
@@ -31,14 +34,24 @@ class Wallet extends React.Component {
       <main>
         <header>
           <div>
-            <h3>TrybeWallet</h3>
+            <h2 className="title">Trybe Wallet</h2>
+            <hr className="colorgraph" />
           </div>
-          <div>
-            <span data-testid="email-field">{ loggedUserEmail }</span>
-            <span>Despesa total: R$</span>
-            <span data-testid="total-field">{ this.sum().toFixed(2) }</span>
-            <span data-testid="header-currency-field">BRL</span>
+          <div className="wallet-container">
+            <div className="wallet-email">
+              <img src={ email } width="30px" alt="email-icon" />
+              <span data-testid="email-field">{ loggedUserEmail }</span>
+            </div>
+            <div className="wallet-currency">
+              <img src={ money } width="30px" alt="email-icon" />
+              <span data-testid="total-field">
+                R$
+                { this.sum().toFixed(2) }
+              </span>
+              <span data-testid="header-currency-field">BRL</span>
+            </div>
           </div>
+          <hr className="colorgraph" />
         </header>
         <ExpensesForm />
         <Table />

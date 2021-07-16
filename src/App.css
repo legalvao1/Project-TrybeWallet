@@ -1,11 +1,88 @@
 /* Credit to bootsnipp.com for the css for the color graph */
 .colorgraph {
-  height: 5px;
-  border-top: 0;
   background: #c4e17f;
-  border-radius: 5px;
-  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(#c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(#c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(#c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  border-radius: 5px;
+  border-top: 0;
+  height: 5px;
+}
+
+.title {
+  color: grey;
+  font-weight: 600;
+  margin: 25px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  justify-content: space-around;
+}
+
+.login-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+}
+
+.signin-title {
+  margin: 10px;
+}
+
+.wallet-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.wallet-email {
+  align-items: center;
+  display: flex;
+  margin: 5px;
+}
+
+.wallet-email img {
+  margin: 5px;
+}
+
+.wallet-currency {
+  align-items: center;
+  display: flex;
+  margin: 5px;
+}
+
+.wallet-currency img {
+  margin: 5px;
+}
+
+.wallet-currency span {
+  font-weight: 900;
+  margin: 2px;
+}
+
+.table-row {
+  text-align: center;
+}
+
+.table-cell {
+  text-align: center;
+}
+
+.table-cell td {
+  line-height: 2.5em;
+}
+
+.table-cell td button {
+  margin: 1px;
+  max-width: 38px;
+  min-height: 35px;
+}
+
+.header-btn {
+  margin-top: 18px;
+  max-height: 45px;
 }

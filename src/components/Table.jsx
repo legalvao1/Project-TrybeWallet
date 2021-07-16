@@ -26,7 +26,7 @@ class Table extends Component {
     return expenses.map((
       { value, currency, method, tag, description, exchangeRates, id }, index,
     ) => (
-      <tr key={ id }>
+      <tr key={ id } className="table-cell">
         <td>{ description }</td>
         <td>{ tag }</td>
         <td>{ method }</td>
@@ -43,6 +43,7 @@ class Table extends Component {
             type="button"
             onClick={ () => removeItem(index) }
             className="btn btn-danger"
+            style={ { color: 'black' } }
           >
             x
           </button>
@@ -52,7 +53,7 @@ class Table extends Component {
             onClick={ () => this.setExpenseToEdit(id) }
             className="btn btn-warning"
           >
-            Editar
+            <i className="fa fa-pencil icon" aria-hidden="true" />
           </button>
         </td>
       </tr>));
@@ -62,7 +63,7 @@ class Table extends Component {
     return (
       <table className="table table-striped">
         <thead>
-          <tr>
+          <tr className="table-row">
             <th>Descrição</th>
             <th>Tag</th>
             <th>Método de pagamento</th>

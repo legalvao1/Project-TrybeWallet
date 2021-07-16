@@ -34,8 +34,6 @@ class ExpensesForm extends Component {
 
   componentDidUpdate(prevProps) {
     const { editExpense } = this.props;
-    // console.log(editExpense);
-    // console.log(prevProps.editExpense);
     if (prevProps.editExpense !== editExpense) {
       this.editItem(editExpense[0]);
     }
@@ -80,10 +78,11 @@ class ExpensesForm extends Component {
         Moeda:
         <select
           name="currency"
+          id="currency"
           value={ currency }
           onChange={ (e) => this.handleChange(e) }
           data-testid="currency-input"
-          className="form-select"
+          className="form-control"
         >
           { this.currencyList()
             ? this.currencyList().map((currencyItem, index) => (
@@ -100,10 +99,11 @@ class ExpensesForm extends Component {
         Método de pagamento:
         <select
           name="method"
+          id="method"
           data-testid="method-input"
           value={ method }
           onChange={ (e) => this.handleChange(e) }
-          className="form-select form-select-lg mb-3"
+          className="form-control"
         >
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
@@ -119,10 +119,11 @@ class ExpensesForm extends Component {
         Tag:
         <select
           name="tag"
+          id="tag"
           data-testid="tag-input"
           value={ tag }
           onChange={ (e) => this.handleChange(e) }
-          className="form-select"
+          className="form-control"
         >
           <option>Alimentação</option>
           <option>Lazer</option>
@@ -142,6 +143,7 @@ class ExpensesForm extends Component {
         <label htmlFor="value">
           Valor:
           <input
+            id="value"
             name="value"
             data-testid="value-input"
             value={ value }
@@ -161,6 +163,7 @@ class ExpensesForm extends Component {
           Descrição:
           <input
             name="description"
+            id="description"
             data-testid="description-input"
             type="text"
             value={ description }
@@ -168,7 +171,11 @@ class ExpensesForm extends Component {
             className="form-control"
           />
         </label>
-        <button type="button" onClick={ () => this.sendAddExpense() } className="btn btn-success">
+        <button
+          type="button"
+          onClick={ () => this.sendAddExpense() }
+          className="btn btn-success header-btn"
+        >
           {editState ? 'Editar despesa' : 'Adicionar despesa'}
         </button>
       </form>
